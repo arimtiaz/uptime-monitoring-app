@@ -1,13 +1,13 @@
 // Dependencies
 const routes = require("../routes");
-const handler = {};
 const { StringDecoder } = require("string_decoder");
 const url = require("url");
 const {
   notFounderHandler,
 } = require("../handlers/routeHandlers/notFounderHandler");
 
-handler.handleRegRes = (req, res) => {
+const handler = {};
+handler.handleReqRes = (req, res) => {
   // url parsing
   const parsedUrl = url.parse(req.url, true);
   const path = parsedUrl.pathname;
@@ -22,22 +22,12 @@ handler.handleRegRes = (req, res) => {
     trimmedPath,
     method,
     queryStringObject,
-    headerObject
-  }
+    headerObject,
+  };
 
   const choosenHandler = routes[trimmedPath]
     ? routes[trimmedPath]
     : notFounderHandler;
-
-  choosenHandler(requestProperties, (statusCode, payload) =>{
-    statusCode = typeof(statusCode) === 'number'? statusCode:500;
-    payload = typeof(payload) === 'object'?payload:{};
-
-    const payloadString = JSON.stringify(payload)
-
-    res.writeHead(statusCode);
-    res.end(payloadString)
-  })
 
   const decoder = new StringDecoder("utf-8");
   let realData = "";
@@ -48,6 +38,16 @@ handler.handleRegRes = (req, res) => {
 
   req.on("end", () => {
     realData += decoder.end();
+
+    choosenHandler(requestProperties, (statusCode, payload) => {
+      statusCode = typeof statusCode === "number" ? statusCode : 500;
+      payload = typeof payload === "object" ? payload : {};
+
+      const payloadString = JSON.stringify(payload);
+
+      res.writeHead(statusCode);
+      res.end(payloadString);
+    });
     console.log(realData);
     res.end("Hello World");
   });

@@ -1,0 +1,21 @@
+{
+  "name": "uptime-monitoring-app",
+  "version": "1.0.0",
+  "description": "Uptime Monitoring App using raw nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start":"NODE_ENV=staging nodemon index",
+    "production":"NODE_ENV=production nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arimtiaz/uptime-monitoring-app.git"
+  },
+  "author": "arimtiaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arimtiaz/uptime-monitoring-app/issues"
+  },
+  "homepage": "https://github.com/arimtiaz/uptime-monitoring-app#readme"
+}

@@ -6,7 +6,10 @@ const {
   notFounderHandler,
 } = require("../handlers/routeHandlers/notFounderHandler");
 
+const {parseJSON}= require('/helpers/utilities')
+// module scaffolding
 const handler = {};
+
 handler.handleReqRes = (req, res) => {
   // url parsing
   const parsedUrl = url.parse(req.url, true);
@@ -38,6 +41,7 @@ handler.handleReqRes = (req, res) => {
 
   req.on("end", () => {
     realData += decoder.end();
+    requestProperties.body = parseJSON(realData);
 
     choosenHandler(requestProperties, (statusCode, payload) => {
       statusCode = typeof statusCode === "number" ? statusCode : 500;
@@ -45,6 +49,7 @@ handler.handleReqRes = (req, res) => {
 
       const payloadString = JSON.stringify(payload);
 
+      res.setHeader('Content-Type','application/json');
       res.writeHead(statusCode);
       res.end(payloadString);
     });

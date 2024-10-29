@@ -6,10 +6,6 @@ const data = require('./lib/data')
 // module scaffolding
 const app = {};
 
-data.delete('test', 'newFile', (err) =>{
-    console.log(err)
-})
-
 // creating the server
 app.createServer = () =>{
     const server = http.createServer(app.handleReqRes);

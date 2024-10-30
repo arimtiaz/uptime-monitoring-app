@@ -1,5 +1,5 @@
 // dependencies
-const crypto = require(crypto);
+const crypto = require('crypto');
 const environments = require("../helpers/environments");
 
 // module scaffolding
@@ -19,10 +19,10 @@ utilities.parseJSON = (jsonString) => {
   return output;
 };
 
-utilities.hashPassword = (str) => {
+utilities.hash = (str) => {
   if (typeof str === "string" && str.length > 0) {
     const hash = crypto
-      .createHmac("sha256", environments[process.env.NODE_ENV].secretKey)
+      .createHmac("sha256", environments.secretKey)
       .update(str)
       .digest("hex");
     return hash;

@@ -6,7 +6,6 @@ const environments = require("../helpers/environments");
 const utilities = {};
 
 // parse JSON string to Object
-
 utilities.parseJSON = (jsonString) => {
   let output;
 

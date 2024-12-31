@@ -32,7 +32,7 @@ handler.handleReqRes = (req, res) => {
   const decoder = new StringDecoder('utf-8');
   let realData = '';
 
-  const chosenHandler = routes[trimmedPath] ? routes[trimmedPath] : notFoundHandler;
+  const chosenHandler = routes[trimmedPath] ? routes[trimmedPath] : notFounderHandler;
 
   req.on('data', (buffer) => {
       realData += decoder.write(buffer);
